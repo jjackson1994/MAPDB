@@ -8,20 +8,21 @@ The repo is split into two sections
 # Class notes
 This implementation utilized Docker to set up containers of various systems
 
-1) [MySQL](
-2) Spark
-3) DASK 
-4) MongoDB
-5) Kafka
-
+1) [MySQL](https://github.com/jjackson1994/MAPDB/tree/main/Class_Problems/mysql/notebooks) 
+2) [Spark](https://github.com/jjackson1994/MAPDB/tree/main/Class_Problems/spark/notebooks)
+3) [DASK](https://github.com/jjackson1994/MAPDB/tree/main/Class_Problems/dask/notebooks)
+4) [MongoDB](https://github.com/jjackson1994/MAPDB/tree/main/Class_Problems/mongo/notebooks)
+5) [Kafka](https://github.com/jjackson1994/MAPDB/tree/main/Class_Problems/kafka/notebooks)
 
 # Project: Sea Turtle Face Detection with Distributed Machine Learning
 
 <img width="1112" alt="image" src="https://user-images.githubusercontent.com/61107719/196725351-81bb9622-20e8-47f1-b06e-0a45ad94ea69.png">
 
-The main goal of this project was to experiment with different options when trying to distribute ML training between workers on a cluster running on Cloud Veneto. 
+[Project Notebook](https://github.com/jjackson1994/MAPDB/blob/main/Dask_Distributed_ML_Project/Dask_distributed_ML_Turtle_Project%20.ipynb)
+
+The primary objective of this project was to experiment with different options when trying to distribute ML training between workers on a cluster running on Cloud Veneto.  
 <img width="375" alt="image" src="https://user-images.githubusercontent.com/61107719/196738255-7133ce05-12a8-41ee-a57b-fbe90f7ddc4a.png">
-dask.org  
+ 
 Dask is a Python based API that facilitates distributed computing. It can link to a cluster of multiple workers and one scheduler computer. It provides multiple workflows to achieve distributed storing and manipulation of data. It is the main tool used in this project.
 
 One option explored was using Dask delayed to distribute a TensorFlow CNN. The other option explored was using a scikit learn MLP classifier. 

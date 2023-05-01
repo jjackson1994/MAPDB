@@ -1,16 +1,14 @@
-
-This repo contains my class notes from the UNIPD MAPDB course on Advanced Data Science Tools
+# Management of Physical Datasets B
 
 The repo is split into two sections
 
 1) MAPDB Class Notes
 2) Project: Sea Turtle Face Detection with Distributed Machine Learning on Cloud Veneto
 
-
 # Class notes
 This implementation utilized Docker to set up containers of various systems
 
-1) MySQl
+1) [MySQL](
 2) Spark
 3) DASK 
 4) MongoDB

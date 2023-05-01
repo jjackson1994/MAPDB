@@ -1,23 +1,38 @@
-﻿# MAPDB
 
-Course Resources: 
-<p float="left">
-  <a href="https://github.com/jpazzini/MAPD-B/tree/2022/mysql" target="_blank">
-  <img src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png" width="60px" />
-  </a>              
-  <a href="https://elearning.unipd.it/dfa/course/view.php?id=1309" target="_blank">
-  <img src="https://tracker.moodle.org/secure/attachment/62695/Mobile-M-Icon-1-corners.png" width="60px" />
-  </a>
-  <a href="https://discord.gg/t6kWR5tx" target="_blank">
-  <img src="https://camo.githubusercontent.com/0ef309f7e0b554033dd25b3ce83015db2f0f8952fb4c31318af095369d3d4453/68747470733a2f2f7669676e657474652e77696b69612e6e6f636f6f6b69652e6e65742f7468652d6d696e6572732d686176656e2d70726f6a6563742f696d616765732f642f64642f446973636f72642e706e672f7265766973696f6e2f6c61746573743f63623d3230313730333038303333353436" width="60px" />
-  </a>
-    </a>              
-  <a href="https://drive.google.com/drive/folders/1ZUFg6jm7ZFmKB3AqlfL7gDnWrjAJNoJy?usp=sharing" target="_blank">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Google_Drive_icon_%282020%29.svg/512px-Google_Drive_icon_%282020%29.svg.png" width="60px" />
-  </a>
-</p>
+This repo contains my class notes from the UNIPD MAPDB course on Advanced Data Science Tools
 
-Tasks: 
+The repo is split into two sections
 
-Notes:  
-I was thinking not to branch unless 100% necessary it's easier to keep track of other peoples changes if you can see it in the main branch straight away    
+1) MAPDB Class Notes
+2) Project: Sea Turtle Face Detection with Distributed Machine Learning on Cloud Veneto
+
+
+# Class notes
+This implementation utilized Docker to set up containers of various systems
+
+1) MySQl
+2) Spark
+3) DASK 
+4) MongoDB
+5) Kafka
+
+
+# Project: Sea Turtle Face Detection with Distributed Machine Learning
+
+<img width="1112" alt="image" src="https://user-images.githubusercontent.com/61107719/196725351-81bb9622-20e8-47f1-b06e-0a45ad94ea69.png">
+
+The main goal of this project was to experiment with different options when trying to distribute ML training between workers on a cluster running on Cloud Veneto. 
+<img width="375" alt="image" src="https://user-images.githubusercontent.com/61107719/196738255-7133ce05-12a8-41ee-a57b-fbe90f7ddc4a.png">
+dask.org  
+Dask is a Python based API that facilitates distributed computing. It can link to a cluster of multiple workers and one scheduler computer. It provides multiple workflows to achieve distributed storing and manipulation of data. It is the main tool used in this project.
+
+One option explored was using Dask delayed to distribute a TensorFlow CNN. The other option explored was using a scikit learn MLP classifier. 
+
+## Computational Time Line Comparison
+Dask Delayed Distribution of a Tensorflow CNN (5 epochs)
+![image](https://user-images.githubusercontent.com/61107719/196728264-29fb43c6-d1c2-4a93-83ff-43017f1951c6.png)
+
+Dask Distribution of a scikit learn MLP classifier (1 epoch)
+![image](https://user-images.githubusercontent.com/61107719/196729074-a719cab6-2836-4dd9-a614-609bef9f2b83.png)
+
+Each row in the images above represents a worker on the cluster. The red color indicates that information is being transferred from another worker. The other colors represent a task pering performed by the worker. Time is on the x-axis. You can see that when Dask distributes the MLP classifier it does not train in parallel. Each worker will train on the data it has collected and then transfer the weights to the next worker to continue training. This strategy will allow the system to break through memory limitations. Although this system does not help reduce training time. The custom Dask delayed distribution of the TensorFlow CNN is a stark contrast. It will train in parallel. This could potentially lead to reduced training times for large datasets. The data is also split between the workers allowing them to break memory limitations. For the small dataset of 4000 198x198 images, the parallel training of the Dask delayed CNN did not cause faster training times than the unparallel supported MLP. One epoch took 10min for the CNN and only 1 second for the MLP. This is partially because the MLP is a simpler algorithm that was fed further processed HOG versions of the images. The CNN is a more complex algorithm with more weights to alter and is fed the full-color images. It is also partially due to the MLP being Dask supported and thus optimised. Dask themselves admit that whilst Dask delayed is flexible it is also slow.
